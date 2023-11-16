@@ -18,14 +18,12 @@ function AdminPage() {
   const [actions, setActions] = useState([]);
 
   async function getSingleAction() {
-    console.log("inicias")
+    setActions([]);
     if (districtSelected) {
-      console.log(districtSelected)
       try {
-        const { data } = await actionsService.show(`"${districtSelected.code_borough}"`);
+        const { data } = await actionsService.show(districtSelected.code_borough);
         setActions(data.interventions);
       } catch (error) {
-        console.log(error);
       }
     }
   }
@@ -42,9 +40,8 @@ function AdminPage() {
         <div className="flex flex-1 max-h-full flex-col gap-6 max-w-lg order-2 md:order-1">
           <InputAutoCompleted />
           <div className="flex flex-col gap-4 max-h-full overflow-y-auto items-center">
-            {}
             {actions.length === 0 ? (
-              <div className="text-center text-gray-500">No hay acciones en esta zona</div>
+              <span className="loading loading-dots loading-sm"></span>
             ) : actions.slice(0, 5).map((action, index) => (
               <div
                 key={index}
@@ -54,14 +51,21 @@ function AdminPage() {
                 <div className=" flex gap-2 items-center">
                   <span
                     className={`text-sm font-bold capitalize ${
-                      action.status === "en proceso"
+                      action.status === "ongoing"
                         ? "text-yellow-600"
-                        : action.status === "finalizado"
+                        : action.status === "finished"
                         ? "text-green-600"
                         : "text-red-600"
                     }`}
                   >
-                    {action.status}
+                    
+                    {
+                      action.status === "ongoing"
+                        ? "En progreso"
+                        : action.status === "finished"
+                        ? "Finalizado"
+                        : "Sin empezar"
+                    }
                   </span>
                   <DistrictModal action={action} key={index}>
                     <button className="p-2 border hover:scale-110 transition-all  hover:bg-white hover:text-black">
@@ -74,7 +78,7 @@ function AdminPage() {
                 </div>
               </div>
             ))}
-            <DistrictModal create={true}>
+            <DistrictModal create>
               <button className="btn btn-primary">
                 Crear una nueva acción
               </button>

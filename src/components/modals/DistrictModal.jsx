@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import FormAction from "../forms/admin/FormAction";
 import FormCreateAction from "../forms/admin/FormCreateAction";
 
 function DistrictModal({ action, children, create }) {
+
+  const [body, setBody] = useState({
+
+  })
+
   return (
     <>
-      {create ? (
+      {create ?  (
         <div className="">
           <div
             className="cursor-pointer"
@@ -17,18 +22,19 @@ function DistrictModal({ action, children, create }) {
             <div className="modal-box">
               <form method="dialog">
                 <button className="btn btn-sm btn-circle btn-ghost text-black absolute right-2 top-2">
-                  ✕
+                  ✕ 
                 </button>
               </form>
               <h3 className="font-bold text-2xl text-center text-black">
                 {" "}
                 {action?.title}
               </h3>
-              <FormAction />
+              <FormCreateAction  />
             </div>
           </dialog>
         </div>
-      ) : (
+      ): 
+      (
         <div className="">
           <div
             className="cursor-pointer"
@@ -47,7 +53,7 @@ function DistrictModal({ action, children, create }) {
                 {" "}
                 {action?.title}
               </h3>
-              <FormCreateAction />
+              <FormAction action={action}/>
             </div>
           </dialog>
         </div>

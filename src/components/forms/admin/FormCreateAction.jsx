@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import actionService from "../../../services/actions.service";
 
-function FormCreateAction({ className }) {
+function FormCreateAction({ className, action}) {
 
   const {register, handleSubmit} = useForm()
+
+  const [bodyEdit, setBodyEdit] = useState(action)
+
 
   const onSubmit = async (dataForm) => {
       try {

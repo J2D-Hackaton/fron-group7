@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
-function FormAction({ className }) {
+function FormAction({ className ,action}) {
 
+
+  const [body, setbody] = useState({
+    title: action?.title
+  })
   return (
     <form className={`w-full ${className}`}>
       <h2 className="text-lg  text-center text-black">Administrar accion</h2>
@@ -13,6 +17,8 @@ function FormAction({ className }) {
           <input
             type="text"
             placeholder="Titulo"
+            value={body?.title}
+            onChange={(e) => setbody({...body, title: e.target.value})}
             className="input input-bordered w-full max-w-full"
           />
         </div>
