@@ -6,10 +6,17 @@ const MapContext = createContext({});
 
 export const MapProvider = ({ children }) => {
 
-    const [districtSelected, setDistrictSelected] = useState({})
+    const [showDetails, setShowDetails] = useState(false);
+    const [districtSelected, setDistrictSelected] = useState({});
+    const [actions, setActions] = useState([]);
+
     const contextData = {
         districtSelected,
         setDistrictSelected,
+        setShowDetails,
+        showDetails,
+        actions, 
+        setActions
     };
 
     return (
