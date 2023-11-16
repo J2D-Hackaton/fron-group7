@@ -4,6 +4,7 @@ import AuthContext from '../context/auth.context'
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import Home from '../pages/Home'
+import AdminPage from '../pages/admin/AdminPage'
 
 export function Router() {
 
@@ -25,6 +26,7 @@ export function Router() {
                 <Route path='/login' element={<Login></Login>} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/home' element={<Home/>} />
+                <Route path='/admin' element={<AdminPage/>} />
 
                 {/* <Route path='/' element={<ProtectedRoute element={}/>} /> */}
 
