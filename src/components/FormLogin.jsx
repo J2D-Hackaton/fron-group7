@@ -1,11 +1,11 @@
-import Button from '../../ui/commons/Button'
+import ButtonLogin from './ButtonLogin'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import AuthContext from '../../../context/auth.context'
-import { authService } from '../../../services/auth.service';
+import AuthContext from '../context/auth.context'
+import { authService } from '../services/auth.service';
 import swal from 'sweetalert';
-import InputForm from '../../ui/commons/InputForm';
+import InputForm from './InputForm';
 
 function FormLogin({ className }) {
 
@@ -35,12 +35,10 @@ function FormLogin({ className }) {
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={'bg-base-300 p-8 flex flex-col text-center rounded shadow-lg ' + ' ' + className}>
-            <h2 className='title2'>¡Bienvenid@ de nuevo!,
-                inicia sesión</h2>
+            <h2 className='title2'>¡Bienvenid@ de nuevo!, inicia sesión</h2>
             <InputForm label="Correo:" name="email" register={register} type="email" placeholder="Correo" />
             <InputForm label="Contraseña:" name="password" register={register} type="password" placeholder="Contraseña" minLength={6} />
-            <Button className='mt-8 btn-primary '>Iniciar sesión</Button>
-            <Link to="/register" className='mt-4 underline underline-offset-4'>¿No tienes una cuenta?</Link>
+            <ButtonLogin className='mt-8 btn-primary'>Iniciar sesión</ButtonLogin>
         </form>
     )
 }
