@@ -24,7 +24,8 @@ export function Router() {
        <Routes>
             <Route path='/*' element={ <LoadingPage /> }/>
             <Route path='/login' element={ <Login /> }/>
-            <Route path='/admin' element={ <ProtectedRoute element={<AdminPage />} /> } />
+            {/* <Route path='/admin' element={ <ProtectedRoute element={<AdminPage />} /> } /> */}
+            <Route path='/admin' element={ <AdminPage/>} />
         </Routes>
     )
 }
