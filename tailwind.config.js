@@ -8,5 +8,8 @@ export default {
     themes: ["lofi"],
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["light", "dark", "cupcake", "lofi"],
+  },
 }
 
