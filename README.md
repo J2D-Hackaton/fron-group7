@@ -47,7 +47,7 @@ $ npm run dev
 - Portada multisection, con mapa interactivo desarrollado con la libreria (React Leafleft)
 - Dashboard, con filtro de los distritos tambien funcional con el mapa interactivo integrado totalmente.
 - Posibilidad de crear /modificar / borrar desde el panel de control, las acciones de a realizar o ya realizadas
-- [link](#Instalación)
+
 
 
 ## 🌐 Tecnologías usadas
