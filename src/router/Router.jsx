@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { HashRouter, Route, Routes, Navigate, BrowserRouter } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import AuthContext from '../context/auth.context'
-import Login from '../pages/auth/Login'
-import Register from '../pages/auth/Register'
-import Home from '../pages/Home'
+import Login from '../pages/LoginPage'
+import LoadingPage from '../pages/LoadingPage'
+import AdminPage from '../pages/admin/AdminPage'
 
 export function Router() {
 
@@ -12,25 +12,20 @@ export function Router() {
     const isAuthenticated = user.Token !== null && user.Token !== undefined && user.Token !== '';
 
     const ProtectedRoute = ({ element: Element, ...props }) => {
-        return isAuthenticated ? (
-            <Element {...props} />
-        ) : (
-            <Navigate to="/login" replace state={{ from: props.location }} />
+        return (
+            isAuthenticated 
+            ? <Element {...props} />
+            : <Navigate to="/login" replace state={{ from: props.location }} />
         )
     }
 
-
     return (
-            <Routes>
-                <Route path='/login' element={<Login></Login>} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/home' element={<Home/>} />
-
-                {/* <Route path='/' element={<ProtectedRoute element={}/>} /> */}
-
-                <Route path='*' element={<h1>not found</h1>} />
-            </Routes>
        
-       
+       <Routes>
+            <Route path='/*' element={ <LoadingPage /> }/>
+            <Route path='/login' element={ <Login /> }/>
+            {/* <Route path='/admin' element={ <ProtectedRoute element={<AdminPage />} /> } /> */}
+            <Route path='/admin' element={ <AdminPage/>} />
+        </Routes>
     )
 }
