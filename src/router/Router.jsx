@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
-import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'
-import Home from '../views/home/Home'
-import Login from '../views/auth/Login'
-import Register from '../views/auth/Register'
-import NotFound from '../components/ui/commons/NotFound'
-import AuthContext from '../context/AuthContext'
-import Choose from '../views/Choose'
+import { HashRouter, Route, Routes, Navigate, BrowserRouter } from 'react-router-dom'
+import AuthContext from '../context/auth.context'
+import Login from '../pages/auth/Login'
+import Register from '../pages/auth/Register'
+import Home from '../pages/Home'
 
 export function Router() {
 
@@ -20,18 +18,19 @@ export function Router() {
             <Navigate to="/login" replace state={{ from: props.location }} />
         )
     }
+
+
     return (
-        <HashRouter>
             <Routes>
-                <Route path='/login' element={<Login />} />
+                <Route path='/login' element={<Login></Login>} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/home' element={<Home/>} />
 
-                <Route path='/chose' element={<ProtectedRoute element={Choose}/>} />
-                <Route path='/' element={<ProtectedRoute element={Home}/>} />
-                <Route path='/home' element={<ProtectedRoute element={Home}/>} />
+                {/* <Route path='/' element={<ProtectedRoute element={}/>} /> */}
 
-                <Route path='*' element={<NotFound />} />
+                <Route path='*' element={<h1>not found</h1>} />
             </Routes>
-        </HashRouter>
+       
+       
     )
 }
