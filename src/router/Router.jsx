@@ -5,6 +5,7 @@ import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import Home from '../pages/Home'
 import AdminPage from '../pages/admin/AdminPage'
+import MapVIew from '../pages/mapview/MapVIew'
 
 export function Router() {
 
@@ -27,7 +28,8 @@ export function Router() {
                 <Route path='/register' element={<Register />} />
                 <Route path='/home' element={<Home/>} />
                 <Route path='/admin' element={<AdminPage/>} />
-
+                <Route path='/map' element={<MapVIew/>} />
+                
                 {/* <Route path='/' element={<ProtectedRoute element={}/>} /> */}
 
                 <Route path='*' element={<h1>not found</h1>} />

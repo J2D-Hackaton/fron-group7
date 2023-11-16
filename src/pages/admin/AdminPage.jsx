@@ -3,6 +3,7 @@ import AdminNavbar from "../../components/forms/admin/AdminNavbar";
 import { AiFillEdit, AiOutlineDelete, AiOutlineInfoCircle, AiOutlineSearch } from "react-icons/ai";
 import InputAutoCompleted from "../../components/InputAutoCompleted";
 import DistrictModal from "../../components/modals/DistrictModal";
+import Map from "../../components/mapa/Map";
 
 const actions = [
   {
@@ -65,7 +66,7 @@ function AdminPage() {
                 <span
                   className={`text-sm font-bold capitalize ${
                     action.status === "en proceso"
-                      ? "text-orange-600"
+                      ? "text-yellow-600"
                       : action.status === "finalizado"
                       ? "text-green-600"
                       : "text-red-600"
@@ -94,11 +95,7 @@ function AdminPage() {
         </div>
         {/* <FormZone className={"max-w-lg order-2 md:order-1"} /> */}
         <div className="rounded  bg-neutral-content self-center order-1 md:order-2 min-h-[20rem] max-h-[25rem] overflow-hidden border-lg shadow-md cursor-pointer hover:scale-105 transition-all hover:-translate-y-5">
-          <img
-            src="https://imgs.search.brave.com/dU051ktZlpHt8fLGvlsCNVAwM3N4X-kXki1kpIJnXZ4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9m/L2ZmL0VzcGElQzMl/QjFhTG9jLnN2Zw.svg"
-            className="w-full h-full object-cover"
-            alt=""
-          />
+          <Map/>
         </div>
       </div>
     </div>

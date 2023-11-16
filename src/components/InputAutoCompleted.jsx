@@ -1,36 +1,25 @@
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import searchDistricts from "../utilities/barrios.json";
 
 function InputAutoCompleted() {
   const [input, setInput] = useState("");
   const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const searchDistricts = [
-    { name: "Ciutat Vella", status: "en progreso" },
-    { name: "Eixample", status: "por iniciar" },
-    { name: "Gracia", status: "finalizado" },
-    { name: "Les Corts", status: "en progreso" },
-    { name: "Sants-Montjuic", status: "por iniciar" },
-    { name: "Sarria-Sant Gervasi", status: "finalizado" },
-    { name: "Horta-Guinardo", status: "en progreso" },
-    { name: "Nou Barris", status: "por iniciar" },
-    { name: "Sant Andreu", status: "finalizado" },
-    { name: "Sant Marti", status: "en progreso" },
-  ];
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setInput(inputValue);
 
     const filteredResults = searchDistricts.filter((district) =>
-      district.name.toLowerCase().includes(inputValue.toLowerCase())
+      district.name_borough.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredDistricts(filteredResults);
-    setDropdownOpen(inputValue !== ""); // Show dropdown only if there is input
+    setDropdownOpen(inputValue !== ""); 
   };
 
   const handleOptionClick = (selectedDistrict) => {
-    setInput(selectedDistrict.name);
+    setInput(selectedDistrict.name_borough);
     setDropdownOpen(false);
   };
 
@@ -54,7 +43,7 @@ function InputAutoCompleted() {
               className="py-1 px-3 cursor-pointer hover:bg-gray-100"
               onClick={() => handleOptionClick(district)}
             >
-              {district.name}
+              {district.name_borough}
             </li>
           ))}
         </ul>
