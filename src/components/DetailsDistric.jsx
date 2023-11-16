@@ -11,16 +11,15 @@ export const DetailsDistric = ({ actions = [], name }) => {
   };
 
   return (
-    <div className="overflow-x-auto w-fit m-8 mx-auto">
+    <div className="overflow-x-auto w-full md:w-fit m-8 mx-auto">
       <div className="flex justify-end text-red-500">
         <button className="3xl" onClick={handleClose}>
           <IconClose />
         </button>
       </div>
-      {actions.length === 0 ? (
-        <span className="loading loading-bars loading-md "></span>
-      ) : (
-        <table className="table overflow-x-auto mx-auto text-md table-auto">
+
+      <div className="table-container overflow-x-auto mx-auto">
+        <table className="table text-md border-collapse">
           <thead>
             <tr className="text-lg">
               <th></th>
@@ -44,7 +43,7 @@ export const DetailsDistric = ({ actions = [], name }) => {
             ))}
           </tbody>
         </table>
-      )}
-    </div>
+      </div>
+    </div>
   );
 };

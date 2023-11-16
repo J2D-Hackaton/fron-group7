@@ -11,14 +11,14 @@ import DistrictModal from "../../components/modals/DistrictModal";
 import Map from "../../components/mapa/Map";
 import { actionsService } from "../../services/actions.service";
 import MapContext from "../../context/map.context";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import EditModal from "../../components/modals/EditModal";
+import swal from "sweetalert";
 
 function AdminPage() {
   const navigate = useNavigate();
-  const { districtSelected, setDistrictSelected } = useContext(MapContext);
-
-  const [actions, setActions] = useState([]);
+  const { districtSelected, setDistrictSelected, actions, setActions } =
+    useContext(MapContext);
 
   async function getSingleAction() {
     setActions([]);
@@ -42,7 +42,28 @@ function AdminPage() {
     getSingleAction();
   }, [districtSelected]);
 
-  const handleDelete = async (action) => {};
+  const handleDelete = async (id) => {
+    swal({
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar esta acción",
+      icon: "warning",
+      buttons: ["Cancelar", "Eliminar"],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const updatedActions = actions.filter((action) => action.id != id);
+          setActions(updatedActions);
+        } catch (error) {
+          swal("Error al eliminar la acción", {
+            icon: "error",
+          });
+        }
+      } else {
+        swal("La acción no ha sido eliminada");
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col px-[5%] pb-8">
@@ -65,25 +86,25 @@ function AdminPage() {
                       className={`text-sm font-bold capitalize ${
                         action.status === "ongoing"
                           ? "text-yellow-600"
-                          : action.status === "finished"
+                          : action.status === "Finished"
                           ? "text-green-600"
                           : "text-red-600"
                       }`}
                     >
                       {action.status === "ongoing"
                         ? "En progreso"
-                        : action.status === "finished"
+                        : action.status === "Finished"
                         ? "Finalizado"
                         : "Sin empezar"}
                     </span>
-                    <DistrictModal action={action} key={index}>
+                    <EditModal action={action} key={index}>
                       <button className="p-2 border hover:scale-110 transition-all  hover:bg-white hover:text-black">
                         <AiOutlineInfoCircle />
                       </button>
-                    </DistrictModal>
+                    </EditModal>
                     <button
                       className="p-2 border hover:scale-110 transition-all  hover:bg-white hover:text-black"
-                      onClick={() => handleDelete()}
+                      onClick={() => handleDelete(action.id)}
                     >
                       <AiOutlineDelete></AiOutlineDelete>
                     </button>
