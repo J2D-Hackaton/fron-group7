@@ -6,7 +6,7 @@ function HeroUser() {
 
   return (
     <div className="hero min-h-screen bgPrin">
-      <div className="hero-overlay bg-opacity-40"></div>
+      <div className="hero-overlay bg-opacity-60"></div>
       <Navbar />
       <div className="hero-content text-center text-neutral-content flex-col">
         <TitleHeader />

@@ -14,15 +14,15 @@ function FormLogin({ className }) {
     const navigate = useNavigate()
 
     const onSubmit = async (dataForm) => {
+        console.log(dataForm)
         try {
             const { data } = await authService.login(dataForm);
             setUser(data);
-
             swal({
                 text: "Has ingresado con éxito",
                 icon: "success",
             });
-            navigate("/chose")
+            navigate("/admin")
         } catch (error) {
             console.log(error)
             let errorMessage = error.response.status === 401 ? "Correo o contraseña incorrectos." : "Error desconocido"
@@ -35,7 +35,7 @@ function FormLogin({ className }) {
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={'bg-base-300 p-8 flex flex-col text-center rounded shadow-lg ' + ' ' + className}>
-            <h2 className='title2'>¡Bienvenid@ de nuevo!, inicia sesión</h2>
+            <h2 className='text-2xl font-bold'>¡Bienvenid@ de nuevo!, iniciar sesión</h2>
             <InputForm label="Correo:" name="email" register={register} type="email" placeholder="Correo" />
             <InputForm label="Contraseña:" name="password" register={register} type="password" placeholder="Contraseña" minLength={6} />
             <ButtonLogin className='mt-8 btn-primary'>Iniciar sesión</ButtonLogin>
