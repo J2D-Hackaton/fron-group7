@@ -1,14 +1,28 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import actionService from "../../../services/actions.service";
 
-function FormAction({ className ,action}) {
+function FormCreateAction({ className, action}) {
+
+  const {register, handleSubmit} = useForm()
+
+  const [bodyEdit, setBodyEdit] = useState(action)
 
 
-  const [body, setbody] = useState({
-    title: action?.title
-  })
+  const onSubmit = async (dataForm) => {
+      try {
+          const { data } = await actionService.create(dataForm);
+          
+      } catch (error) {
+          console.log(error)
+         
+      }
+  };
+
+
   return (
     <form className={`w-full ${className}`}>
-      <h2 className="text-lg  text-center text-black">Administrar accion</h2>
+      <h2 className="text-lg  text-center text-black">Crear Acción</h2>
       <div className="form-control w-full max-w-full text-black">
         <div className="form-control w-full max-w-full text-black">
           <label className="label">
@@ -17,8 +31,6 @@ function FormAction({ className ,action}) {
           <input
             type="text"
             placeholder="Titulo"
-            value={body?.title}
-            onChange={(e) => setbody({...body, title: e.target.value})}
             className="input input-bordered w-full max-w-full"
           />
         </div>
@@ -71,10 +83,10 @@ function FormAction({ className ,action}) {
             className="input input-bordered w-full max-w-full"
           />
         </div>
-        <button className="btn btn-primary hover:scale-105 transition-all mt-4 self-center">Actualizar</button>
+        <button className="btn btn-primary hover:scale-105 transition-all mt-4 self-center">Crear </button>
       </div>
     </form>
   );
 }
 
-export default FormAction;
+export default FormCreateAction;

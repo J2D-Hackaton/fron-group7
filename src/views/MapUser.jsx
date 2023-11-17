@@ -7,7 +7,8 @@ import MapContext from "../context/map.context";
 export const MapUser = () => {
 
   const { actions, districtSelected, showDetails } = useContext(MapContext)
-
+  
+  
   return (
     <>
       <section id="mapuser">
