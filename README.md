@@ -1,4 +1,4 @@
-![Texto alternativo](https://i.imgur.com/RBrdkHf.jpeg)
+![Texto alternativo](https://i.imgur.com/x9DNtWr.png)
 
 
 # Project v1.0
@@ -39,7 +39,7 @@ $ npm run dev
 - El repositorio de data también se incluyeel repositorio de Data, [Click para ingresar al repositorio backend]([https://github.com/J2D-Hackaton/Data])
 
 ## 🕹️ Demostración
-![IMG DEMO](https://)
+![IMG DEMO](https://acua-civis.vercel.app/)
 
 
 ## ⭐ Características
