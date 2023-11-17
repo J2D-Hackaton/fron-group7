@@ -9,15 +9,21 @@ const Map = () => {
     useContext(MapContext);
 
   const getActions = async (id) => {
-    const data = await fetch(
-      `https://jump2digital-grup7.onrender.com/api/v1/intervention/${id}`
-    );
-    const { interventions } = await data.json();
-    setActions(interventions);
+    try {
+      const data = await fetch(
+        `https://jump2digital-grup7.onrender.com/api/v1/intervention/${id}`
+      );
+      const { interventions } = await data.json();
+  
+      setActions(interventions);
+    } catch (error) {
+      
+      console.log(error);
+    }
   };
 
-  const handleCircleClick = (barrio) => {
-    getActions(barrio.id);
+  const handleCircleClick = (barrio, id) => {
+    getActions(id);
     setDistrictSelected(barrio);
     setShowDetails(true);
   };
@@ -50,7 +56,7 @@ const Map = () => {
         <Circle
           center={[districtSelected.coords[1], districtSelected.coords[0]]}
           pathOptions={{
-            color:actionIndexColor(districtSelected?.action_index),
+            color: actionIndexColor(districtSelected?.action_index),
             fillColor: actionIndexColor(districtSelected?.action_index),
           }}
           radius={220}
@@ -68,7 +74,9 @@ const Map = () => {
                 fillColor: actionIndexColor(barrio?.action_index),
               }}
               radius={200}
-              eventHandlers={{ click: () => handleCircleClick(barrio) }}
+              eventHandlers={{
+                click: () => handleCircleClick(barrio, barrio.id),
+              }}
             />
           );
         })
