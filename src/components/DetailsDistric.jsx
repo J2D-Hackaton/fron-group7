@@ -1,10 +1,26 @@
-export const DetailsDistric = ({ district }) => {
+import { useContext } from "react"
+import MapContext from "../context/map.context"
+import { IconClose } from '../components/icons/IconClose'
 
-  return (
-    <div className="overflow-x-auto m-8">
-      <table className="table w-[50%] mx-auto">
+export const DetailsDistric = ({ actions, name }) => {
+
+  const { setShowDetails } = useContext(MapContext)
+
+  const handleClose = () => {
+    setShowDetails(false)
+  }
+
+  return (    
+    <div className="overflow-x-auto w-fit m-8 mx-auto">
+      <div className="flex justify-end text-red-500">
+        <button className="3xl" onClick={ handleClose }>
+          <IconClose />
+        </button>
+      </div>
+      
+      <table className="table overflow-x-auto mx-auto text-md table-auto">
         <thead>
-          <tr>
+          <tr className="text-lg">
             <th></th>
             <th>Distrito</th>
             <th>Actuacion</th>
@@ -14,14 +30,18 @@ export const DetailsDistric = ({ district }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Cy Ganderton</td>
-          </tr>
+        {
+          actions.map( (action) => (
+            <tr key={ action.barrio_id }>
+              <td>{ action.id}</td>
+              <td>{ name }</td>
+              <td>{ action.title }</td>
+              <td>{ action.startDate }</td>
+              <td>{ action.endDate}</td>
+              <td>{ action.status }</td>
+            </tr>
+          ))
+        }
         </tbody>
       </table>
     </div>
