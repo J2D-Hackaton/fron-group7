@@ -1,14 +1,45 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { set, useForm } from "react-hook-form";
+import actionService from "../../../services/actions.service";
+import MapContext from "../../../context/map.context";
 
-function FormAction({ className ,action}) {
+function FormAction({ className, action }) {
+  const { register, handleSubmit, setValue } = useForm();
+  const { actions, setActions } = useContext(MapContext);
+
+  useEffect(() => {
+    if (action) {
+      setValue("title", action.title);
+      setValue("description", action.description);
+      setValue("status", action.status);
+    }
+  }, [action, setValue]);
+
+  const onSubmit = async (dataForm) => {
+    console.log("Data del formulario:", dataForm);
+    const currentActions = [...actions]; 
+
+    const existingActionIndex = currentActions.findIndex(
+      (existingAction) => existingAction.id === action.id
+    );
+
+    if (existingActionIndex !== -1) {
+      currentActions[existingActionIndex] = { ...dataForm, id: action.id };
+    } else {
+      currentActions.unshift(dataForm);
+    }
+
+    setActions(currentActions);
+
+    setValue("title", "");
+    setValue("description", "");
+    setValue("status", "");
+  };
 
 
-  const [body, setbody] = useState({
-    title: action?.title
-  })
   return (
-    <form className={`w-full ${className}`}>
-      <h2 className="text-lg  text-center text-black">Administrar accion</h2>
+    <form className={`w-full ${className}`} onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-lg font-bold text-center text-black">Modificar acción</h2>
       <div className="form-control w-full max-w-full text-black">
         <div className="form-control w-full max-w-full text-black">
           <label className="label">
@@ -17,9 +48,8 @@ function FormAction({ className ,action}) {
           <input
             type="text"
             placeholder="Titulo"
-            value={body?.title}
-            onChange={(e) => setbody({...body, title: e.target.value})}
             className="input input-bordered w-full max-w-full"
+            {...register("title")}
           />
         </div>
         <div className="form-control w-full max-w-full text-black">
@@ -29,49 +59,25 @@ function FormAction({ className ,action}) {
           <textarea
             placeholder="Descripción"
             className="textarea textarea-bordered w-full max-w-full"
+            {...register("description")}
           ></textarea>
         </div>
         <div className="form-control w-full max-w-full text-black">
           <label className="label">
             <span className="label-text">Estatus:</span>
           </label>
-          <select className="select select-bordered">
-            <option selected>En progreso</option>
-            <option>Por iniciar</option>
-            <option>Finalizar</option>
+          <select className="select select-bordered" {...register("status")}>
+            <option selected value="ongoing">En progreso</option>
+            <option value="Por iniciar">Por Empezar</option>
+            <option value="Finished">Finalizado</option>
           </select>
         </div>
-        <div className="form-control w-full max-w-full text-black">
-          <label className="label">
-            <span className="label-text">Dirección:</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Dirección"
-            className="input input-bordered w-full max-w-full"
-          />
-        </div>
-        <div className="form-control w-full max-w-full">
-          <label className="label">
-            <span className="label-text">Fecha de inicio:</span>
-          </label>
-          <input
-            type="date"
-            placeholder="Fecha"
-            className="input input-bordered w-full max-w-full"
-          />
-        </div>
-        <div className="form-control w-full max-w-full">
-          <label className="label">
-            <span className="label-text">Fecha de finalización:</span>
-          </label>
-          <input
-            type="date"
-            placeholder="Fecha"
-            className="input input-bordered w-full max-w-full"
-          />
-        </div>
-        <button className="btn btn-primary hover:scale-105 transition-all mt-4 self-center">Actualizar</button>
+        <button
+          type="submit"
+          className="btn btn-primary hover:scale-105 transition-all mt-4 self-center"
+        >
+          Modificar
+        </button>
       </div>
     </form>
   );
